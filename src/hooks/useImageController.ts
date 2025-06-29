@@ -156,22 +156,19 @@ export const useImageController = () => {
     const promises: Promise<void>[] = [];
 
     // Construct tile layout
-    const createTiles = (resolution: number) => {
-      for (let i = 0; i < resolution * 2; i++) {
-        for (let j = 0; j < resolution * 2; j++) {
-          try {
-            const task = getTileAPI(i, j, resolution).then((res) => {
-              newGrid[i][j] = res;
-            });
-            promises.push(task);
-          } catch (err) {
-            console.error("Could not create grid: ", err);
-          }
+
+    for (let i = 0; i < zoom.resolution * 2; i++) {
+      for (let j = 0; j < zoom.resolution * 2; j++) {
+        try {
+          const task = getTileAPI(i, j, zoom.resolution).then((res) => {
+            newGrid[i][j] = res;
+          });
+          promises.push(task);
+        } catch (err) {
+          console.error("Could not create grid: ", err);
         }
       }
-    };
-
-    createTiles(zoom.resolution);
+    }
 
     // Wait for grid tiles to be fully resolved
     Promise.all(promises)
