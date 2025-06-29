@@ -156,7 +156,6 @@ export const useImageController = () => {
     const promises: Promise<void>[] = [];
 
     // Construct tile layout
-
     for (let i = 0; i < zoom.resolution * 2; i++) {
       for (let j = 0; j < zoom.resolution * 2; j++) {
         try {
